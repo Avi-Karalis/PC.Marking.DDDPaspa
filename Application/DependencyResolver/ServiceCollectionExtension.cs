@@ -9,9 +9,12 @@ using System.Threading.Tasks;
 namespace Application.DependencyResolver {
     public static class ServiceCollectionExtensions {
 
-        public static void AddApplication(this IServiceCollection services) {
-       
+        public static IServiceCollection AddApplication(this IServiceCollection services) {
 
+
+            services.AddDomain();
+            services.AddTransient<Marking>();
+            return services;
 
         }
 

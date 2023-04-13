@@ -1,8 +1,11 @@
 ﻿using Application;
 using Domain;
+using Domain.DTO;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepoInterfaces;
+using System.Net;
 
 namespace API.Controllers 
 {
@@ -19,7 +22,7 @@ namespace API.Controllers
             _marking = marking;
         }
 
-        [HttpGet("all"]
+        [HttpGet("all")]
         public async Task<IActionResult> ShowExams()
         {
             var response = await _examRepo.GetAll();
@@ -27,10 +30,23 @@ namespace API.Controllers
         }
 
         [HttpPost("Auto")]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [ProducesErrorResponseType(typeof(float))]
         public async Task<IActionResult> MarkExamAuto([FromBody]Exam exam)
         {
-            var score = await _marking.MarkingService(exam);
-            return Ok(score);
+            try
+            {
+                var score = await _marking.MarkingService(exam);
+                return StatusCode((int)HttpStatusCode.OK, score);
+            }
+            catch (InvalidRequestBodyException ex)
+            {
+                return BadRequest(new BaseResponseDTO
+                {
+                    IsSuccess = false,
+                    Errors = ex.Errors
+                });
+            }
         }
 
 
