@@ -11,7 +11,7 @@ namespace Application.DependencyResolver {
 
         public static IServiceCollection AddApplication(this IServiceCollection services) {
 
-
+            // Add all application-specific services to the service collection
             services.AddDomain();
             services.AddTransient<Marking>();
             return services;
