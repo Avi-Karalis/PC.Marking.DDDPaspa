@@ -78,6 +78,22 @@ namespace TestJsonCreator
 
             var testExam = examFaker.Generate(1);
 
+
+            // Calculate Exam's maximun score
+
+            foreach (Exam exam in testExam) 
+            {
+                int maxScore = 0;
+                foreach(Section section in exam.Sections)
+                {
+                    foreach(Question question in section.Questions)
+                    {
+                        maxScore += question.MaximumMarks;
+                    }
+                }
+                exam.MaximumScore = maxScore;
+            }
+
         
             //var json = JsonConvert.SerializeObject(testExam, Formatting.Indented);
 
