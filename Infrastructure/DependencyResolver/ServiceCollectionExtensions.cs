@@ -10,12 +10,14 @@ using System.Threading.Tasks;
 namespace Infrastructure.DependencyResolver {
     public static class ServiceCollectionExtensions {
        
-        public static void AddInfrastructure (this IServiceCollection services) {
+        public static IServiceCollection AddInfrastructure (this IServiceCollection services) {
             services.AddDatabaseContext();
+            
 
             services.AddScoped<IExamRepository, ExamRepository>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            return services;
 
         }
 
