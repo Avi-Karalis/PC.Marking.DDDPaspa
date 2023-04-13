@@ -7,5 +7,6 @@ public class Option {
     public bool? IsCorrect { get; set; }
     public bool? Selected { get; set; }
     public double? MarkValue { get; set; }
-    public int QuestionId { get; set; } // afto to theloyme gia bidirectionality
+    // Do we actually need this??
+    public int? QuestionId { get; set; } // afto to theloyme gia bidirectionality
 }
