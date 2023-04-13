@@ -1,15 +1,36 @@
-﻿using Domain;
+﻿using Application;
+using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepoInterfaces;
 
-namespace API.Controllers {
+namespace API.Controllers 
+{
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamAutoMarkingController : ControllerBase {
+    public class ExamAutoMarkingController : ControllerBase 
+    {
+        private IExamRepository _examRepo;
+        private Marking _marking;
 
-        [HttpPost]
-        public async Task<ActionResult<float>> MarkExamAuto([FromBody]Exam exam) {
-            return Ok() ;
+        public ExamAutoMarkingController(IExamRepository examRepo, Marking marking)
+        {
+            _examRepo = examRepo;
+            _marking = marking;
+        }
+
+        [HttpGet("all"]
+        public async Task<IActionResult> ShowExams()
+        {
+            var response = await _examRepo.GetAll();
+            return Ok(response);
+        }
+
+        [HttpPost("Auto")]
+        public async Task<IActionResult> MarkExamAuto([FromBody]Exam exam)
+        {
+            var score = await _marking.MarkingService(exam);
+            return Ok(score);
         }
 
 
