@@ -8,6 +8,7 @@ namespace Application
         private readonly IQuestionRepository _questionRepository;
         public QuestionMarkingBase(IQuestionRepository questionRepository) =>  _questionRepository = questionRepository;
 
+
         public async Task<Question> QuestionMarkingService(Question question)
         {
             foreach (var option in question.OptionsAvailable)
@@ -18,6 +19,7 @@ namespace Application
                 }
             } 
                   
+
             return question;
         }
     }
