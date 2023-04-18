@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
-{
-    public class Exam: GenericExam
-    {
-        List<Question> Questions; // Q1
-        List<PossibleAnswers> Answers;  // Q1.PossibleAnswers[0] = "sdfsdfsdf", Q1.PossibleAnswers[1] = "sdfsdfsdf"
-        List<SubmittedAnswers> SubmittedAnswers;
+namespace Domain {
+    public class Exam {
+        public int Id { get; set; }
+        public List<Section> Sections { get; set; }
+        public MarkingState MarkingState { get; set; }
+        public double? OverallExamScore { get; set; }
+        public int MaximumScore { get; set; }
     }
 }
