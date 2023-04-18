@@ -18,6 +18,7 @@ namespace Infrastructure.DependencyResolver {
             services.AddScoped<IExamRepository, ExamRepository>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+
             // Returns the modified service collection
             return services;
 
