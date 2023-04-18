@@ -13,7 +13,10 @@ namespace Application.DependencyResolver {
 
             // Add all application-specific services to the service collection
             services.AddDomain();
-            services.AddTransient<Marking>();
+            services.AddScoped<Marking>();
+            services.AddScoped<IQuestionMarkingBase, QuestionMarkingBase>();
+            services.AddScoped<IExamMarkingBase, ExamMarkingBase>();
+            services.AddScoped<ISectionMarkingBase, SectionMarkingBase>();
             return services;
 
         }

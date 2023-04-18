@@ -10,27 +10,40 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application {
-    public class Marking {
-       ExamMarkingBase ExamMarkingBase { get; set; }
-       SectionMarkingBase SectionMarkingBase { get; set; }
-       QuestionMarkingBase QuestionMarkingBase { get; set; }
+namespace Application
+{
+    public class Marking
+    {
+         //ExamMarkingBase ExamMarkingBase { get; set; }
+         //SectionMarkingBase SectionMarkingBase { get; set; }
+         //QuestionMarkingBase QuestionMarkingBase { get; set; }
 
         private readonly IValidator<Exam> _validator;
+        private  ExamMarkingBase _examMarkingBase;
+        private  SectionMarkingBase _sectionMarkingBase;
+        private  QuestionMarkingBase _questionMarkingBase;
 
-        public Marking(IValidator<Exam> validator)
+
+        public Marking(IValidator<Exam> validator,
+            ExamMarkingBase examMarkingBase,
+            SectionMarkingBase sectionMarkingBase,
+            QuestionMarkingBase questionMarkingBase)
         {
             _validator = validator;
+            _examMarkingBase = examMarkingBase;
+            _questionMarkingBase = questionMarkingBase;
+            _sectionMarkingBase = sectionMarkingBase;
+
         }
 
-        public float MarkingService(Exam exam) 
+        public async Task<float> MarkingService(Exam exam)
         {
             // 1st 
-            exam.Sections.ForEach(section => { section.Questions.ForEach(q => QuestionMarkingBase.QuestionMarkingService(q));});
+            exam.Sections.ForEach(section => { section.Questions.ForEach(q => _questionMarkingBase.QuestionMarkingService(q)); });
 
-            exam.Sections.ForEach(section => SectionMarkingBase.SectionMarkingService(section));
+            exam.Sections.ForEach(section => _sectionMarkingBase.SectionMarkingService(section));
 
-            ExamMarkingBase.ExamAutoMarkingService(exam);
+            await _examMarkingBase.ExamAutoMarkingService(exam);
 
             //
 
@@ -49,7 +62,7 @@ namespace Application {
                 };
             }
             return (float)exam.OverallExamScore;
-           
+
         }
     }
 }

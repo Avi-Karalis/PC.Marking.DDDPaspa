@@ -35,7 +35,7 @@ namespace TestJsonCreator
 
             //var optionIds = 1;
             var optionFaker = new Faker<Option>()
-                .RuleFor(x => x.MarkValue, f => null)
+                .RuleFor(x => x.MarkValue, f => 1)
                 .RuleFor(x => x.Text, f => f.Random.Words(4));
             //.RuleFor(x=> x.IsCorrect, f=> f.Random.Bool())
             //.RuleFor(x=> x.Selected, f=> f.Random.Bool())
@@ -59,7 +59,7 @@ namespace TestJsonCreator
 
             var sectionFaker = new Faker<Section>()
                 .RuleFor(x => x.Description, f => f.Random.Words(10))
-                .RuleFor(x => x.Weight, f => 0.2)
+                .RuleFor(x => x.Weight, f => (float)0.2)
                 .RuleFor(x => x.Questions, f =>
                 {
                     var questions = questionFaker.Generate(5);
@@ -94,11 +94,11 @@ namespace TestJsonCreator
                 exam.MaximumScore = maxScore;
             }
 
-        
-            //var json = JsonConvert.SerializeObject(testExam, Formatting.Indented);
 
-            //Console.WriteLine(  json);
-            //File.WriteAllText("MCQ1CorrectPerQ.json", json);
+            var json = JsonConvert.SerializeObject(testExam, Formatting.Indented);
+
+            Console.WriteLine(json);
+            File.WriteAllText("MCQ1CorrectPerQ.json", json);
             //Console.ReadLine();
 
         }

@@ -3,7 +3,7 @@ using RepoInterfaces;
 
 namespace Application 
 {
-    public class QuestionMarkingBase 
+    public class QuestionMarkingBase : IQuestionMarkingBase
     {
         // inject the IQuestionRepository dependency into the constructor
         private readonly IQuestionRepository _questionRepository;
@@ -17,7 +17,7 @@ namespace Application
                 // if the option is selected by the student and is correct, then add its mark value to the awarded marks of the question
                 if (option.Selected == true && option.IsCorrect == true)
                 {
-                    question.AwardedMarks += option.MarkValue;
+                    question.AwardedMarks += (int)option.MarkValue;
                 }
             } 
                   
