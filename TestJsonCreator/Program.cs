@@ -11,7 +11,7 @@ namespace TestJsonCreator
     {
         static void Main(string[] args)
         {
-            Randomizer.Seed = new Random(8675309);
+            //Randomizer.Seed = new Random(8675309);
 
             //var ScenarioTypes = new List<ScenarioType>();
 
