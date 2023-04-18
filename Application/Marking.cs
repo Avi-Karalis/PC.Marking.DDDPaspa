@@ -19,15 +19,15 @@ namespace Application
          //QuestionMarkingBase QuestionMarkingBase { get; set; }
 
         private readonly IValidator<Exam> _validator;
-        private  ExamMarkingBase _examMarkingBase;
-        private  SectionMarkingBase _sectionMarkingBase;
-        private  QuestionMarkingBase _questionMarkingBase;
+        private  IExamMarkingBase _examMarkingBase;
+        private  ISectionMarkingBase _sectionMarkingBase;
+        private  IQuestionMarkingBase _questionMarkingBase;
 
 
         public Marking(IValidator<Exam> validator,
-            ExamMarkingBase examMarkingBase,
-            SectionMarkingBase sectionMarkingBase,
-            QuestionMarkingBase questionMarkingBase)
+            IExamMarkingBase examMarkingBase,
+            ISectionMarkingBase sectionMarkingBase,
+            IQuestionMarkingBase questionMarkingBase)
         {
             _validator = validator;
             _examMarkingBase = examMarkingBase;

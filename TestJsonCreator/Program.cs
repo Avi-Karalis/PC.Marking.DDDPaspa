@@ -51,7 +51,9 @@ namespace TestJsonCreator
                 .RuleFor(x => x.OptionsAvailable, f =>
                     {
                         var options = optionFaker.Generate(4);
-                        options[1].IsCorrect = true;
+                        //options[1].IsCorrect = true;
+                        options[numFaker.Random.Number(0, 3)].IsCorrect = true;
+                        //options[1].Selected = true;
                         options[numFaker.Random.Number(0, 3)].Selected = true;
 
                         return options;

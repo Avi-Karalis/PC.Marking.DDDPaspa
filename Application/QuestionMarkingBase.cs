@@ -12,12 +12,13 @@ namespace Application
         // define the QuestionMarkingService method that takes a Question object and marks it
         public async Task<Question> QuestionMarkingService(Question question)
         {
+            question.AwardedMarks = 0;
             foreach (var option in question.OptionsAvailable)
             {
                 // if the option is selected by the student and is correct, then add its mark value to the awarded marks of the question
                 if (option.Selected == true && option.IsCorrect == true)
                 {
-                    question.AwardedMarks += (int)option.MarkValue;
+                    question.AwardedMarks += option.MarkValue;
                 }
             } 
                   
