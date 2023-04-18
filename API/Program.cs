@@ -1,3 +1,4 @@
+using Application.DependencyResolver;
 using Infrastructure.DependencyResolver;
 
 namespace API {
@@ -12,7 +13,9 @@ namespace API {
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddInfrastructure();
+            builder.Services
+                .AddApplication()
+                .AddInfrastructure();
 
             var app = builder.Build();
 
