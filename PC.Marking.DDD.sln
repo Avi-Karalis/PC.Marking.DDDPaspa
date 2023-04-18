@@ -14,15 +14,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Domain", "01.Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Application", "02.Application", "{D71F6C7D-EEAA-482F-951C-B1924FD10F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{404879EF-4166-4B9C-AC9B-E6C5B483E1A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{404879EF-4166-4B9C-AC9B-E6C5B483E1A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Infrastructure", "03.Infrastructure", "{A6B12D42-70A9-4446-9CBF-23DCEF066759}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{EBDEC490-74D6-45E4-ABF1-9975FAA57549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{EBDEC490-74D6-45E4-ABF1-9975FAA57549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{739547D9-B14E-444F-BC7E-8F1814B813B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{739547D9-B14E-444F-BC7E-8F1814B813B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationDbContext", "DbContext\ApplicationDbContext.csproj", "{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationDbContext", "DbContext\ApplicationDbContext.csproj", "{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Testing", "04.Testing", "{3B43CC61-D132-431B-B3DD-CD9DD1216A9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestJsonCreator", "TestJsonCreator\TestJsonCreator.csproj", "{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +58,10 @@ Global
 		{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +73,7 @@ Global
 		{EBDEC490-74D6-45E4-ABF1-9975FAA57549} = {A6B12D42-70A9-4446-9CBF-23DCEF066759}
 		{739547D9-B14E-444F-BC7E-8F1814B813B7} = {A6B12D42-70A9-4446-9CBF-23DCEF066759}
 		{9F36BAB8-5FBD-442C-A5AE-0FBBAFAA20C3} = {EE988F33-0145-422F-A352-D933D4D46D9D}
+		{B6314F77-3AE2-4E9A-977D-CC6913ABE7F0} = {3B43CC61-D132-431B-B3DD-CD9DD1216A9F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57198D2A-3E42-4257-B112-05B3E771B6DF}

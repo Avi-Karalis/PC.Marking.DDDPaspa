@@ -6,6 +6,9 @@ public class Option {
     public string? Text { get; set; }
     public bool? IsCorrect { get; set; }
     public bool? Selected { get; set; }
-    public int? MarkValue { get; set; }
-    public int QuestionId { get; set; } // afto to theloyme gia bidirectionality
+
+    public double? MarkValue { get; set; }
+    // Do we actually need this??
+    public int? QuestionId { get; set; } // afto to theloyme gia bidirectionality
+
 }
