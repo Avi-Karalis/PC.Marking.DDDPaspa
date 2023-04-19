@@ -1,6 +1,5 @@
 using Application.DependencyResolver;
 using Infrastructure.DependencyResolver;
-using Application;
 
 namespace API {
     public class Program {
@@ -17,7 +16,6 @@ namespace API {
             builder.Services
                 .AddApplication()
                 .AddInfrastructure();
-            builder.Services.AddMediatR(Application.AssemblyReference.Assembly);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

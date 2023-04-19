@@ -4,6 +4,6 @@
         public string Description { get; set; }
         public float Weight { get; set; }
         public List<Question> Questions { get; set; }
-        public double? AwardedSectionMarks { get; set; }
+        public double AwardedSectionMarks { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace TestJsonCreator
                 //.RuleFor(x=>x.ScenarioType, f=> f.ScenarioType[Random.Number(1,3)])
                 .RuleFor(x => x.ScenarioType, f => f.PickRandom<ScenarioType>())
                 .RuleFor(x => x.MaximumMarks, f => f.Random.Number(1, 5))
-                .RuleFor(x => x.AwardedMarks, f => null)
+                .RuleFor(x => x.AwardedMarks, f => 0)
                 .RuleFor(x => x.OptionsAvailable, f =>
                     {
                         var options = optionFaker.Generate(4);
@@ -71,7 +71,7 @@ namespace TestJsonCreator
 
             var examFaker = new Faker<Exam>()
                 .RuleFor(x => x.MarkingState, f => MarkingState.UnMarked)
-                .RuleFor(x => x.OverallExamScore, f => null)
+                .RuleFor(x => x.OverallExamScore, f => 0)
                 .RuleFor(x => x.Sections, f =>
                 {
                     var sections = sectionFaker.Generate(5);

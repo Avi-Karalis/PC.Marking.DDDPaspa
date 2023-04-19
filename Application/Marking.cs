@@ -35,7 +35,7 @@ public class Marking
 
         //exam.Sections.ForEach(section => _sectionMarkingBase.SectionMarkingService(section));
 
-        await _examMarkingBase.ExamAutoMarkingService(exam);
+        var markedExam = await _examMarkingBase.ExamAutoMarkingService(exam);
 
         //
 
@@ -43,7 +43,7 @@ public class Marking
         //exam.Sections.ForEach(section => section.Questions.ForEach(q => tasks.Add(Task.Run(()=> QuestionMarkingBase.QuestionMarkingService(q)))));
         //Task.WaitAll(tasks.ToArray());
 
-        var result = _validator.Validate(exam);
+        var result = _validator.Validate(markedExam);
 
         if (!result.IsValid)
         {
@@ -53,7 +53,7 @@ public class Marking
                 Errors = errors
             };
         }
-        return (float)exam.OverallExamScore;
+        return (float)markedExam.OverallExamScore;
 
     }
 }

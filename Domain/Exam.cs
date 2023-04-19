@@ -9,7 +9,7 @@ namespace Domain {
         public int Id { get; set; }
         public List<Section> Sections { get; set; }
         public MarkingState MarkingState { get; set; }
-        public double? OverallExamScore { get; set; }
+        public double OverallExamScore { get; set; }
         public int MaximumScore { get; set; }
     }
 }

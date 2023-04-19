@@ -1,25 +1,22 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RepoInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.DependencyResolver {
-    public static class ServiceCollectionExtensions {
+namespace Application.DependencyResolver;
+public static class ServiceCollectionExtensions {
 
-        public static IServiceCollection AddApplication(this IServiceCollection services) {
+    public static IServiceCollection AddApplication(this IServiceCollection services) {
 
-            // Add all application-specific services to the service collection
-            services.AddDomain();
-            services.AddScoped<Marking>();
-            services.AddScoped<IQuestionMarkingBase, QuestionMarkingBase>();
-            services.AddScoped<IExamMarkingBase, ExamMarkingBase>();
-            services.AddScoped<ISectionMarkingBase, SectionMarkingBase>();
-            return services;
-
-        }
+        var assembly = typeof(ServiceCollectionExtensions).Assembly;
+        // Add all application-specific services to the service collection
+        services.AddDomain();
+        services.AddScoped<Marking>();
+        services.AddScoped<IQuestionMarkingBase, QuestionMarkingBase>();
+        services.AddScoped<IExamMarkingBase, ExamMarkingBase>();
+        services.AddScoped<ISectionMarkingBase, SectionMarkingBase>();
+        services.AddMediatR(configuration =>
+            configuration.RegisterServicesFromAssembly(assembly)
+            );
+        return services;
 
     }
+
 }

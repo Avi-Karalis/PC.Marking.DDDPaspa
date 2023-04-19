@@ -2,4 +2,4 @@
 
 namespace Application.Commands.AutoMarkingCommand;
 
-public sealed record AutoMarkingCommand(Exam exam): ICommand;
+public sealed record AutoMarkingCommand(Exam exam): ICommand<Exam>;

@@ -1,7 +1,7 @@
 ﻿using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.AutoMarkingCommand;
+namespace Application.Commands;
 
 public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand
