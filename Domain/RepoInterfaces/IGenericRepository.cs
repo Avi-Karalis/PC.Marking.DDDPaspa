@@ -6,17 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RepoInterfaces {
+
+    // Declare a public interface called "IGenericRepository" that is parameterized with a type "T" that must be a reference type (i.e. a class)
     public interface IGenericRepository<T> where T : class {
-        // these are queries.
-        Task<List<T>> GetAll();
 
-        Task Save();
+        // These are queries that return Task objects
+        Task<List<T>> GetAll();  // Returns a list of all entities of type "T" in the data store
+
+        Task Save();   // Saves changes made to the data store
 
 
-        // CRUD Operation
-        Task<T> Insert(T entity);
-        Task<T> Update(T entity);
-        Task Delete(int Id);
-        Task<T> GetById(int Id);
+        // These are CRUD operations that return Task objects
+        Task<T> Insert(T entity);   // Inserts an entity of type "T" into the data store and returns the inserted entity
+        Task<T> Update(T entity);   // Updates an existing entity of type "T" in the data store and returns the updated entity
+        Task Delete(int Id);    // Deletes the entity with the specified ID from the data store
+        Task<T> GetById(int Id);    // Retrieves the entity with the specified ID from the data store and returns it
     }
 }

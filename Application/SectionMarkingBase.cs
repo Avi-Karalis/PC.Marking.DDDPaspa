@@ -16,6 +16,7 @@ namespace Application {
         // The implementation of SectionMarkingService method defined in the ISectionMarkingBase interface.
         public async Task<Section> SectionMarkingService(Section section)
         {
+            section.AwardedSectionMarks = 0;
             foreach(Question question in section.Questions) 
             {
                 // Call the QuestionMarkingService method of _questionMarking instance
