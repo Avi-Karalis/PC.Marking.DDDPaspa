@@ -19,10 +19,23 @@ namespace API.Controllers
         private Marking _marking;
 
         // Inject the dependencies using constructor injection
-        public ExamAutoMarkingController(IExamRepository examRepo, Marking marking)
+        public ExamAutoMarkingController(Marking marking, IServiceProvider serviceProvider)
         {
-            _examRepo = examRepo;
+            // ask from the UoW to supply an implementation that exists for IExamRepository and is of type ExamRepository
+            GetImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
             _marking = marking;
+        }
+
+        private void GetImplementation(IServiceProvider serviceProvider, ExamRepositoryImplementations implementation)
+        {
+            var examRepos = serviceProvider.GetServices<IExamRepository>();
+            foreach (var repo in examRepos.ToList())
+            {
+                if (repo.Implementation == implementation)
+                {
+                    _examRepo = repo;
+                }
+            }
         }
 
         // Define an HTTP GET action to retrieve all exams

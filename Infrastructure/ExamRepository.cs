@@ -9,7 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using RepoInterfaces;
 
 namespace Infrastructure {
-    public class ExamRepository : IExamRepository {
+    public class ExamRepository : IExamRepository 
+    {
+        public ExamRepositoryImplementations Implementation { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         // Holds an instance of the MarkingDbContext
         private readonly MarkingDbContext _context;
@@ -18,7 +20,9 @@ namespace Infrastructure {
         public ExamRepository(MarkingDbContext context)
         {
             _context = context;
+            Implementation = ExamRepositoryImplementations.ExamRepository;
         }
+
 
         // Deletes an Exam record from the database with the specified Id
         public async Task Delete(int Id) {
@@ -69,6 +73,84 @@ namespace Infrastructure {
         // Updates an Exam record in the database
         public async Task<Exam> Update(Exam entity) {
            
+            _context.Exams.Update(entity);
+            await Save();
+            return entity;
+
+        }
+    }
+
+    public class ExamRepository2 : IExamRepository
+    {
+        public ExamRepositoryImplementations Implementation { get; set; }
+        
+        // Holds an instance of the MarkingDbContext
+        private readonly MarkingDbContext _context;
+
+        // Constructor for ExamRepository that accepts a MarkingDbContext instance
+        public ExamRepository2(MarkingDbContext context)
+        {
+            _context = context;
+            Implementation = ExamRepositoryImplementations.ExamRepository2;
+        }
+
+        // Deletes an Exam record from the database with the specified Id
+        public async Task Delete(int Id)
+        {
+
+            _context.Exams.Remove(await GetById(Id));
+            await Save();
+        }
+
+        // Retrieves all Exam records from the database
+        public async Task<List<Exam>> GetAll()
+        {
+
+            return await _context.Exams.ToListAsync();
+        }
+
+        // Retrieves an Exam record from the database with the specified Id
+        public async Task<Exam> GetById(int Id)
+        {
+
+            return await _context.Exams.FirstOrDefaultAsync(x => x.Id == Id);
+        }
+
+        // Retrieves all Exam records from the database that are in AutoMarked state
+        public async Task<List<Exam>> GetMarkedList()
+        {
+
+            return await _context.Exams.Where(x => x.MarkingState == MarkingState.AutoMarked).ToListAsync();
+        }
+
+        // Retrieves all Exam records from the database that are in UnMarked state
+        public async Task<List<Exam>> GetUnmarkedList()
+        {
+
+            return await _context.Exams.Where(x => x.MarkingState == MarkingState.UnMarked).ToListAsync();
+        }
+
+        // Inserts an Exam record into the database
+        public async Task<Exam> Insert(Exam exam)
+        {
+
+            await _context.Exams.AddAsync(exam);
+            await Save();
+            return exam;
+        }
+
+        // Saves changes made to the database
+        public async Task Save()
+        {
+
+            await _context.SaveChangesAsync();
+
+        }
+
+        // Updates an Exam record in the database
+        public async Task<Exam> Update(Exam entity)
+        {
+
             _context.Exams.Update(entity);
             await Save();
             return entity;
