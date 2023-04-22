@@ -11,7 +11,7 @@ using RepoInterfaces;
 namespace Infrastructure {
     public class ExamRepository : IExamRepository 
     {
-        public ExamRepositoryImplementations Implementation { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ExamRepositoryImplementations Implementation { get; set; }
 
         // Holds an instance of the MarkingDbContext
         private readonly MarkingDbContext _context;
