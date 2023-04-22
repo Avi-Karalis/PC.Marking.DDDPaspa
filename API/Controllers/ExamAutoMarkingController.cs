@@ -22,11 +22,11 @@ namespace API.Controllers
         public ExamAutoMarkingController(Marking marking, IServiceProvider serviceProvider)
         {
             // ask from the UoW to supply an implementation that exists for IExamRepository and is of type ExamRepository
-            GetImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
+            ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
             _marking = marking;
         }
 
-        private void GetImplementation(IServiceProvider serviceProvider, ExamRepositoryImplementations implementation)
+        private void ApplyImplementation(IServiceProvider serviceProvider, ExamRepositoryImplementations implementation)
         {
             var examRepos = serviceProvider.GetServices<IExamRepository>();
             foreach (var repo in examRepos.ToList())
