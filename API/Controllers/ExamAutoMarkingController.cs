@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.ExamServ;
 using Domain;
 using Domain.DTO;
 using Domain.Exceptions;
@@ -15,15 +16,15 @@ namespace API.Controllers
     public class ExamAutoMarkingController : ControllerBase 
     {
         // Declare private fields to hold the injected dependencies
-        private IExamRepository _examRepo;
+        private IExamService _examService;
         private Marking _marking;
 
         // Inject the dependencies using constructor injection
-        public ExamAutoMarkingController(Marking marking, IServiceProvider serviceProvider)
+        public ExamAutoMarkingController(Marking marking, IExamService examService)
         {
             // ask from the UoW to supply an implementation that exists for IExamRepository and is of type ExamRepository
-            ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository2);
-
+            //ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository2);
+            _examService = examService;
             _marking = marking;
         }
 
@@ -34,7 +35,7 @@ namespace API.Controllers
             {
                 if (repo.Implementation == implementation)
                 {
-                    _examRepo = repo;
+                   // _examRepo = repo;
                 }
             }
         }
@@ -44,7 +45,8 @@ namespace API.Controllers
         public async Task<IActionResult> ShowExams()
         {
             // Call the GetAll() method of the injected exam repository to retrieve all exams
-            var response = await _examRepo.GetAll();
+            //var response = await _examRepo.GetAll();
+            var response = await _examService.ExamRepository1.GetAll();
             // Return an HTTP 200 OK response with the retrieved exams as the response body
             return Ok(response);
         }

@@ -1,4 +1,5 @@
 ﻿using Domain.DependencyResolver;
+using Application.DependencyResolver;
 using Microsoft.Extensions.DependencyInjection;
 using RepoInterfaces;
 using System;
@@ -19,7 +20,11 @@ namespace Infrastructure.DependencyResolver {
             // replace the following two lines with an ExamService
             services.AddScoped<IExamRepository, ExamRepository>();
             services.AddScoped<IExamRepository, ExamRepository2>();
-            
+            services.AddScoped<IExamService, ExamService>();
+
+            //salalalalalaal
+
+
             //services.AddScoped(typeof(ExamRepository2)) === services.AddScoped<ExamRepository2>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();

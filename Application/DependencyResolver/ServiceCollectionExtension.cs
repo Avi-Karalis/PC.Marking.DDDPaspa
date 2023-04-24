@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.ExamServ;
+using Microsoft.Extensions.DependencyInjection;
 using RepoInterfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Application.DependencyResolver {
             services.AddScoped<IQuestionMarkingBase, QuestionMarkingBase>();
             services.AddScoped<IExamMarkingBase, ExamMarkingBase>();
             services.AddScoped<ISectionMarkingBase, SectionMarkingBase>();
+            services.AddScoped<IExamService, ExamService>();
             return services;
 
         }
