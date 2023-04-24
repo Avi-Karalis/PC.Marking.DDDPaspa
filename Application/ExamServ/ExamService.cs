@@ -9,11 +9,11 @@ using RepoInterfaces;
 
 namespace Application.ExamServ
 {
-    public class ExameService : IExamService
+    public class ExamService : IExamService
     {
         private MarkingDbContext _context;
 
-        public ExameService(MarkingDbContext context)
+        public ExamService(MarkingDbContext context)
         {
             _context = context;
             ExamRepository1 = new ExamRepository (_context);

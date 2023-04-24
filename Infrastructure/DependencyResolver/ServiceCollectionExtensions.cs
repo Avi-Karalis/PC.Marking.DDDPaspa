@@ -18,9 +18,8 @@ namespace Infrastructure.DependencyResolver {
             // Registers the ExamRepository, SectionRepository, and QuestionRepository with scoped lifetime
             
             // replace the following two lines with an ExamService
-            services.AddScoped<IExamRepository, ExamRepository>();
-            services.AddScoped<IExamRepository, ExamRepository2>();
-            services.AddScoped<IExamService, ExamService>();
+            //services.AddScoped<IExamRepository, ExamRepository>();
+            //services.AddScoped<IExamRepository, ExamRepository2>();
 
             //salalalalalaal
 
