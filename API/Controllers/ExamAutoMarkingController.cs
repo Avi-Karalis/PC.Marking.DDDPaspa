@@ -22,7 +22,8 @@ namespace API.Controllers
         public ExamAutoMarkingController(Marking marking, IServiceProvider serviceProvider)
         {
             // ask from the UoW to supply an implementation that exists for IExamRepository and is of type ExamRepository
-            ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
+            ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository2);
+
             _marking = marking;
         }
 
