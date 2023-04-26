@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.giannisDF.ApiDto;
+using Application.giannisDF.ApiDtoMapping;
+using Domain;
 using Domain.Exceptions;
 using Domain.Validators;
 using FluentValidation;
@@ -14,36 +16,43 @@ namespace Application
 {
     public class Marking
     {
-         //ExamMarkingBase ExamMarkingBase { get; set; }
-         //SectionMarkingBase SectionMarkingBase { get; set; }
-         //QuestionMarkingBase QuestionMarkingBase { get; set; }
+        //ExamMarkingBase ExamMarkingBase { get; set; }
+        //SectionMarkingBase SectionMarkingBase { get; set; }
+        //QuestionMarkingBase QuestionMarkingBase { get; set; }
+        public ExamGetDto getExamDto;
+        private Exam _exam;
+         
 
         private readonly IValidator<Exam> _validator;
         private  IExamMarkingBase _examMarkingBase;
         private  ISectionMarkingBase _sectionMarkingBase;
         private  IQuestionMarkingBase _questionMarkingBase;
+        private  ApiDtoMapper _apiDtoMapper; 
 
 
         public Marking(IValidator<Exam> validator,
             IExamMarkingBase examMarkingBase,
             ISectionMarkingBase sectionMarkingBase,
-            IQuestionMarkingBase questionMarkingBase)
+            IQuestionMarkingBase questionMarkingBase,
+            ApiDtoMapper apiDtoMapper)
         {
             _validator = validator;
             _examMarkingBase = examMarkingBase;
             _questionMarkingBase = questionMarkingBase;
             _sectionMarkingBase = sectionMarkingBase;
-
+            _apiDtoMapper = apiDtoMapper;
+            this.getExamDto = getExamDto;
+            _exam = _apiDtoMapper.GetDtoToExam(getExamDto);
         }
 
-        public async Task<float> MarkingService(Exam exam)
+        public async Task<float> MarkingService()
         {
             // 1st 
-            exam.Sections.ForEach(section => { section.Questions.ForEach(q => _questionMarkingBase.QuestionMarkingService(q)); });
+            _exam.Sections.ForEach(section => { section.Questions.ForEach(q => _questionMarkingBase.QuestionMarkingService(q)); });
 
-            exam.Sections.ForEach(section => _sectionMarkingBase.SectionMarkingService(section));
+            _exam.Sections.ForEach(section => _sectionMarkingBase.SectionMarkingService(section));
 
-            await _examMarkingBase.ExamAutoMarkingService(exam);
+            await _examMarkingBase.ExamAutoMarkingService(_exam);
 
             //
 
@@ -51,7 +60,7 @@ namespace Application
             //exam.Sections.ForEach(section => section.Questions.ForEach(q => tasks.Add(Task.Run(()=> QuestionMarkingBase.QuestionMarkingService(q)))));
             //Task.WaitAll(tasks.ToArray());
 
-            var result = _validator.Validate(exam);
+            var result = _validator.Validate(_exam);
 
             if (!result.IsValid)
             {
@@ -61,7 +70,7 @@ namespace Application
                     Errors = errors
                 };
             }
-            return (float)exam.OverallExamScore;
+            return (float)_exam.OverallExamScore;
 
         }
     }

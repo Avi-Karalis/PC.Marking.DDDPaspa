@@ -1,8 +1,9 @@
 ﻿using Application;
-using Domain;
+using Application.giannisDF;
+using Application.giannisDF.ApiDto;
 using Domain.DTO;
 using Domain.Exceptions;
-using Microsoft.AspNetCore.Http;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RepoInterfaces;
 using System.Net;
@@ -15,35 +16,40 @@ namespace API.Controllers
     public class ExamAutoMarkingController : ControllerBase 
     {
         // Declare private fields to hold the injected dependencies
-        private IExamRepository _examRepo;
         private Marking _marking;
+        private ExamService _examService;
+        private IServiceProvider _serviceProvider;
 
         // Inject the dependencies using constructor injection
-        public ExamAutoMarkingController(Marking marking, IServiceProvider serviceProvider)
+        public ExamAutoMarkingController(Marking marking, ExamService examService, IServiceProvider serviceProvider)
         {
             // ask from the UoW to supply an implementation that exists for IExamRepository and is of type ExamRepository
-            ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
+            //ApplyImplementation(serviceProvider, ExamRepositoryImplementations.ExamRepository);
             _marking = marking;
+            _examService = examService;
+            _serviceProvider = serviceProvider;
         }
 
-        private void ApplyImplementation(IServiceProvider serviceProvider, ExamRepositoryImplementations implementation)
-        {
-            var examRepos = serviceProvider.GetServices<IExamRepository>();
-            foreach (var repo in examRepos.ToList())
-            {
-                if (repo.Implementation == implementation)
-                {
-                    _examRepo = repo;
-                }
-            }
-        }
+        //private void ApplyImplementation(IServiceProvider serviceProvider, ExamRepositoryImplementations implementation)
+        //{
+        //    var examRepos = serviceProvider.GetServices<IExamRepository>();
+        //    foreach (var repo in examRepos.ToList())
+        //    {
+        //        if (repo.Implementation == implementation)
+        //        {
+        //            _examRepo = repo;
+        //        }
+        //    }
+        //}
 
         // Define an HTTP GET action to retrieve all exams
         [HttpGet("all")]
         public async Task<IActionResult> ShowExams()
         {
+            _examService.ApplyImplementation(ExamRepositoryImplementations.ExamRepository2);
             // Call the GetAll() method of the injected exam repository to retrieve all exams
-            var response = await _examRepo.GetAll();
+            var response = _examService.examRepository.GetAll();    
+            //var response = await _examRepo.GetAll();
             // Return an HTTP 200 OK response with the retrieved exams as the response body
             return Ok(response);
         }
@@ -54,14 +60,17 @@ namespace API.Controllers
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
         // Set the response type for an error response to a custom response type representing the error
         [ProducesErrorResponseType(typeof(float))]
-        public async Task<IActionResult> MarkExamAuto([FromBody]Exam exam)
+        public async Task<IActionResult> MarkExamAuto([FromBody]ExamGetDto examGetDto)
         {
+          Console.WriteLine(_serviceProvider.GetServices<IExamRepository>().FirstOrDefault(k => k.GetType()== typeof(ExamRepository)));
             try
             {
                 // Call the MarkingService() method of the injected Marking service to mark the exam and retrieve the score
-                var score = await _marking.MarkingService(exam);
+                _marking.getExamDto = examGetDto;
+                var score = await _marking.MarkingService();
                 // Return an HTTP 200 OK response with the exam score as the response body
-                return StatusCode((int)HttpStatusCode.OK, score);
+                //return StatusCode((int)HttpStatusCode.OK, score);
+                return Ok(score);
             }
             catch (InvalidRequestBodyException ex)
             {
